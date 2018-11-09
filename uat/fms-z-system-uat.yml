@@ -1,0 +1,13 @@
+server:
+  port: ${server-port:9011}
+
+##手机短信网关
+etonenetParam:
+  mtUrl: http://esms100.10690007.net/sms/mt
+  command: MT_REQUEST
+  spid: 9686
+  sppassword: iWmn0ddP
+  spsc: 00
+  sa: 10657109053657
+  haltPhoneNum: 18055313782
+

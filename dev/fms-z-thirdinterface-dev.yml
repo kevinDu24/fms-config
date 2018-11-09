@@ -1,0 +1,30 @@
+server:
+  port: ${server-port:9231}
+fms:
+  #gps相关
+  gps:
+    ty:
+      #请求工单设备实时位置信息获取接口url
+      queryUrl: http://121.43.178.183:9989/dispatch_intf/wlController?getOrderInfo
+      #请求派单接口url
+      sendUrl: http://121.43.178.183:9989/dispatch_intf/wlController?sendOrder
+      #拉车账号
+      carAccount: 太二测试
+  #金蝶接口相关
+  kingDee:
+    #客户接入地址
+    cusUrl: http://xmwanliang.gnway.cc:883/www/cus.api
+    #凭证接入地址
+    voucherUrl: http://xmwanliang.gnway.cc:883/www/voucher.api
+  #短信接口
+  message:
+    #API域名
+    url: http://www.baidu.com
+    #还款短信对应账号(只允许发还款短信)
+    repayId: winline #账号
+    repayPwd: 3208899 #密码
+    #续保以及其他短信
+    otherId: winline12 #账号
+    otherPwd: xm3208899 #密码
+
+

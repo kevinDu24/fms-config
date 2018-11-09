@@ -1,0 +1,4 @@
+server:
+  port: ${server-port:9051}
+#enabled:
+#  openOffice: true

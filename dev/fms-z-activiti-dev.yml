@@ -1,0 +1,10 @@
+server:
+  port: ${server-port:9041}
+
+security:
+  basic:
+    enabled: false
+
+spring:
+  activiti:
+    db-identity-used: false

@@ -1,0 +1,188 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.193:3306/wan_liang?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: Leadu2016#
+    platform: mysql
+  redis:
+    database: 1
+    host: 192.168.1.193
+    port: 6379
+    pool:
+      max-active: 1000
+      max-wait: 30000
+      min-idle: 0
+      max-idle: 50
+      timeout: 30000
+  rabbitmq:
+    host: 192.168.1.193
+    port: 5672
+  jackson:
+    time-zone: GMT+8
+  http:
+    multipart:
+      maxFileSize: 50Mb
+      maxRequestSize: 80Mb
+
+ribbon:
+  ConnectTimeout: 600000
+  ReadTimeout: 600000
+  eager-load:
+    enabled: true
+    clients: fms-z-system,fms-c-agent,fms-c-oauth2,fms-z-activiti,fms-z-baseinfo,fms-z-postbiz,fms-z-prebiz,fms-z-product,fms-z-finance,fms-z-insurance,fms-z-cost,fms-z-original,fms-z-asset
+
+hystrix:
+  command:
+     default:
+      execution:
+         isolation:
+          thread:
+             timeoutInMilliseconds: 600000 #缺省为1000
+  threadpool:
+    default:
+     coreSize: 50 #缺省为10
+
+mybatis:
+  type-aliases-package: cn.com.leadu.fms.pojo.system.entity
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    jdbc-type-for-null: varchar
+    variables:
+      delete_exist: '0'
+      delete_not_exist: '1'
+      parent_code: '0'
+
+
+mapper:
+  mappers:
+    - cn.com.leadu.fms.data.base.config.BaseDao
+  not-empty: false
+  before: true
+  identity: MYSQL
+
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+page:
+  pageSize: 10
+
+
+web:
+  check:
+    token:
+      url: http://fms-c-oauth2/oauth/check_token
+  client:
+    id: leadu_fms_web
+    secret: leadu_fms_web_1
+  login:
+    user:
+      header: access-user
+  chain:
+    header: access-chain
+  #/info,/health 是供monitor项目监控项目状态所用,部署到生产环境上时 nginx需要将两个端口屏蔽 不允许外网访问
+  notAuthUrl: /api/auth/oauth/**,/info,/health
+  #不需要记录到日志表中的url
+  notLogUrl: /sys_user_info/findSysUserInfoVosByPage
+  #不需要token续时的url
+  notTokenTimeUrl: /sys_user_info/findSysUserInfoVosByPage
+
+#异常信息是否发送随机码
+syserror:
+  showcode: N
+
+fms:
+  feigns:
+    serverNames:
+      fmsAgent: fms-c-agent
+      fmsOauth2: fms-c-oauth2
+      fmsSystem: fms-z-system
+      fmsFile: fms-z-file
+      fmsActiviti: fms-z-activiti
+      fmsBaseInfo: fms-z-baseinfo
+      fmsPostBiz: fms-z-postbiz
+      fmsPreBiz: fms-z-prebiz
+      fmsProduct: fms-z-product
+      fmsFinance: fms-z-finance
+      fmsInsurance: fms-z-insurance
+      fmsCost: fms-z-cost
+      fmsOriginal: fms-z-original
+      fmsAsset: fms-z-asset
+      fmsThirdInterface: fms-z-thirdinterface
+      nameMaps:
+        0: fms-z-system
+        1: fms-z-baseinfo
+        2: fms-z-file
+        3: fms-z-activiti
+        4: fms-z-prebiz
+        5: fms-z-postbiz
+        6: fms-z-product
+        7: fms-z-finance
+        8: fms-z-insurance
+        9: fms-z-cost
+        10: fms-z-original
+        11: fms-z-asset
+        12: fms-z-thirdinterface
+  filePaths:
+    fileRootPath: /data/fms_file/
+  openOffice:
+    servers:
+      60.168.131.134: 8100
+  #征信相关
+  credit:
+    py:
+      #API域名
+      url: http://test.pycredit.com:6001
+      #返回报文压缩的URL
+      pathZip: /rest/query/report/zip
+      #返回报文不压缩的URL
+      pathUnzip: /rest/query/report/unzip
+      #认证信息
+      userId: wlxmwsqueryn2
+      passWord: esalnQdMUq/rOEHj+E4NOg==
+      #是否测试模式
+      test: true
+      #请求内容样本文件，实际中可使用具体对象组装
+      queryFile: /sample.json
+      keyStoreFile: d:/certs/client.jks
+      keyStorePassWord: 123456
+      trustStoreFile: d:/certs/client.jks
+      trustStorePassWord: 123456
+      #贷款审批查询原因ID
+      queryReasonID: 101
+      #反欺诈分析接口
+      antiQueryType: 25212 #查询类型（接口类型）
+      antiSubReportId: 96040 #收费子报告
+      #地址核查接口
+      addrQueryType: 25160 #查询类型（接口类型）
+      addrSubReportId: 15300 #收费子报告
+      #卡核查及交易接口
+      cardCheckQueryType: 25136 #查询类型（接口类型）
+      cardCheckSubReportId: 14501,14517 #收费子报告
+      #个人银行卡核查接口
+      personBkCheckQueryType: 25173
+      personBkCheckSubReportId: 14509
+      #企业银行卡核查接口
+      corpBkcheckQueryType: 25174
+      corpBkcheckSubReportId: 22600
+      #企业风险接口
+      corpRiskQueryType: 25123
+      corpRiskSubReportId: 22527
+      #企业债务接口
+      corpDebtQueryType: 25123
+      corpDebtSubReportId: 22108
+      #驾驶证接口
+      driverQueryType: 25201
+      driverSubReportId: 14901,14903
+      #鹏元附件下载地址
+      filePath: d:/PyJsonFile/
+
+logging:
+  level:
+    cn:
+      com:
+        leadu: debug

@@ -1,0 +1,10 @@
+server:
+  port: ${server-port:9001}
+
+
+fms:
+  web:
+    client:
+      clientId: leadu_fms_web
+      clientSecret: leadu_fms_web_1
+      grantType: password

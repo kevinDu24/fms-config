@@ -1,0 +1,18 @@
+server:
+  port: ${server-port:9331}
+
+liquibase:
+  change-log: classpath:db/changelog/db.changelog-master.xml
+
+quartz:
+  enabled: true
+  scheduler:
+    startup:
+      delay: 0
+
+fms:
+  cron:
+    expression:
+      prebiz:
+        cont_repay_sked: 0 0/10 * * * ?
+        apply_auto_cancel: 0 0/10 * * * ?

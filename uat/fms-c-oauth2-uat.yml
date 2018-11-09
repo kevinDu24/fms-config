@@ -1,0 +1,8 @@
+server:
+  port: ${server-port:8901}
+
+token:
+  time:
+    seconds:
+      access: 60
+      refresh: 90

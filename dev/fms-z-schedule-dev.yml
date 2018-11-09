@@ -1,0 +1,24 @@
+server:
+  port: ${server-port:9331}
+
+liquibase:
+  change-log: classpath:db/changelog/db.changelog-master.xml
+
+quartz:
+  enabled: true
+  scheduler:
+    startup:
+      delay: 0
+
+fms:
+  cron:
+    expression:
+      prebiz:
+        cont_repay_sked: 0 0 0 * * ?       #逾期罚息自动程序 -已确认0709
+        apply_auto_cancel: 0 0 0 * * ?    #申请自动取消
+      postbiz:
+        message_send: 0 0/3 * * * ?
+        automatic_settleDetail: 0 0 0 * * ?
+      insurance:
+        insurance_renewal: 0 0/4 * * * ?           #续保任务自动生成
+        insurance_message_send: 0 0/5 * * * ?           #续保信息

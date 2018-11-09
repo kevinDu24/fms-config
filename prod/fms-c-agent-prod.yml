@@ -1,0 +1,54 @@
+server:
+  port: ${server-port:8891}
+
+zuul:
+  sensitiveHeaders:
+  routes:
+    user:
+      path: /api/system/**
+      service-id : fms-z-system
+    oauth2:
+      path: /api/auth/**
+      service-id: fms-c-oauth2
+    file:
+      path: /api/file/**
+      service-id: fms-z-file
+    activiti:
+      path: /api/activiti/**
+      service-id: fms-z-activiti
+    baseinfo:
+      path: /api/baseinfo/**
+      service-id: fms-z-baseinfo
+    postbiz:
+      path: /api/postbiz/**
+      service-id: fms-z-postbiz
+    prebiz:
+      path: /api/prebiz/**
+      service-id: fms-z-prebiz
+    product:
+      path: /api/product/**
+      service-id: fms-z-product
+    finance:
+      path: /api/finance/**
+      service-id: fms-z-finance
+    insurance:
+      path: /api/insurance/**
+      service-id: fms-z-insurance
+    cost:
+      path: /api/cost/**
+      service-id: fms-z-cost
+    original:
+      path: /api/original/**
+      service-id: fms-z-original
+    asset:
+      path: /api/asset/**
+      service-id: fms-z-asset
+    riskmgmt:
+      path: /api/riskmgmt/**
+      service-id: fms-z-riskmgmt
+    thirdinterface:
+      path: /api/thirdinterface/**
+      service-id: fms-z-thirdinterface
+  ribbon:
+    eager-load:
+      enabled: true
